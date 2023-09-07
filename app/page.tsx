@@ -15,8 +15,7 @@ export default function GameCanvas() {
   const player = new EntityPlayer.default(
     16,
     16,
-    1,
-    {x: posX, y: posY}
+    {x: posX, y: posY},
   );
   
   const coin = new EntityBlock.default(
