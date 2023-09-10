@@ -1,40 +1,18 @@
 'use client';
 
-import Block from "@/component/Block";
-import * as EntityBlock from '@/entity/Block';
 import Player from "@/component/Player";
-import * as EntityPlayer from "@/entity/Player";
-import MoveFactory from "@/entity/moves/MoveFactory";
 import { KeyboardEvent, useState } from "react";
+import GameObservable from "@/entity/Game";
 
 export default function GameCanvas() {
-  
-  const [posX, setPosX] = useState(0);
-  const [posY, setPosY] = useState(0);
-  
-  const player = new EntityPlayer.default(
-    16,
-    16,
-    {x: posX, y: posY},
-  );
-  
-  const coin = new EntityBlock.default(
-    16,
-    16,
-    {x: 10, y: 10}
-  );
+  const gameObservable = new GameObservable();
   
   const movePlayer = (event: KeyboardEvent<HTMLElement>) => {
-    player.strategy = MoveFactory(event.key);
-    player.move();
-    setPosX(() => player.x); 
-    setPosY(() => player.y);
+    gameObservable.captureKeyPressed(event.key);
   }
-
   return (
-    <main className="min-h-screen relative" onKeyDown={movePlayer} tabIndex={0}>
-      <Player player={player}></Player>
-      <Block block={coin}></Block>
+    <main className="min-h-screen relative overflow-hidden" onKeyDown={movePlayer} tabIndex={0}>
+      <Player game={gameObservable} ></Player>
     </main>
   )
 }

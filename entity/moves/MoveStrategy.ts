@@ -1,9 +1,9 @@
-import Player from "@/entity/Player";
 import Coordinates from "../Coordinates";
+import Movable from "../Movable";
 
 export default interface MoveStrategy {
     /**
      * Calculate the correct new position based on a Player;
      */
-    calculatePositionForPlayer(player: Player): Coordinates;
+    calculatePositionForPlayer(movable: Movable): Coordinates;
 }
