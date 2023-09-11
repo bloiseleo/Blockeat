@@ -1,6 +1,7 @@
+import Coordinates from '@/entity/Coordinates';
 import GameObservable from '@/entity/Game';
 import * as EPlayer from '@/entity/Player';
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 type Props = {
   game: GameObservable
@@ -8,35 +9,38 @@ type Props = {
 
 const Player = ({game}: Props) => {
   
-  const [posX, setPosX] = useState(0);
-  const [posY, setPosY] = useState(0);
-
-  const player = new EPlayer.default(
-    16,
-    16,
-    {x: posX, y: posY},
-  );
-
-  player.onMove((from, to) => {
-    setPosX(() => to.x); 
-    setPosY(() => to.y);
+  const [coordinates, setCoordinates] = useState<Coordinates>({
+    x: 0,
+    y: 0
   });
 
-  game.on('movePlayer', key => {
-    setInterval(() => {
-      player.move(key);
-    }, 100);
-  })
+  const movingInterval = useRef<NodeJS.Timeout>();
+  
+  useEffect(() => {
+    
+    game.player.onMove((from, to) => {
+      setCoordinates(() => to);
+    });
+    
+    game.on('movePlayer', key => {
+      clearInterval(movingInterval.current);
+      movingInterval.current = setInterval(() => {
+        game.player.move(key);
+      }, 50);
+    })
+
+  }, []);
+
 
   return (
     <div
       id='player'
       style={{
         position: 'absolute',
-        top: player.y,
-        left: player.x,
-        width: player.width,
-        height: player.height,
+        top: coordinates.y,
+        left: coordinates.x,
+        width: game.player.width,
+        height: game.player.height,
         backgroundColor: 'red'
       }}
     />
