@@ -2,7 +2,7 @@
 
 import * as EPlayer from '@/entity/Player';
 import Player from "@/component/Player";
-import { KeyboardEvent, useEffect } from "react";
+import { KeyboardEvent } from "react";
 import GameObservable from "@/entity/Game";
 import Childs from '@/component/Childs';
 

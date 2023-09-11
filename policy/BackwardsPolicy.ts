@@ -1,11 +1,13 @@
-import Movable from "@/entity/Movable";
-import MoveStrategy from "@/entity/moves/MoveStrategy";
+import Player from "@/entity/Player";
 
 export default class BackwardsPolicy {
     canMove(
-        oldStrategy: MoveStrategy ,
+        player: Player,
         keyPressed: string,
-    ): boolean {        
-        return oldStrategy.keyBackwards != keyPressed;
+    ): boolean {       
+        if(!player.strategy) {
+            return true;
+        }
+        return player.strategy.keyBackwards != keyPressed || player.qtdChilds == 0;
     }
 }
