@@ -1,8 +1,8 @@
 import Player from "@/entity/Player";
-import MoveStrategy from "./MoveStrategy";
 import Coordinates from "../Coordinates";
+import BaseMoveStrategy from "./BaseMoveStrategy";
 
-export default class RightMoveStrategy implements MoveStrategy {
+export default class RightMoveStrategy extends BaseMoveStrategy {
     calculatePositionForPlayer(player: Player): Coordinates {
         let newPos = player.x + player.speed;
         if(newPos > window.innerWidth) {

@@ -9,25 +9,37 @@ const keyBindings: {[key: string]: MoveStrategy} = {};
 
 keyBindings[
     MovesPossible.UP
-] = new UpMoveStrategy();
+] = new UpMoveStrategy(
+    MovesPossible.UP,
+    MovesPossible.DOWN
+);
 
 keyBindings[
     MovesPossible.DOWN
-] = new DownMoveStrategy();
+] = new DownMoveStrategy(
+    MovesPossible.DOWN,
+    MovesPossible.UP
+);
 
 keyBindings[
     MovesPossible.LEFT
-] = new LeftMoveStrategy();
+] = new LeftMoveStrategy(
+    MovesPossible.LEFT,
+    MovesPossible.RIGHT
+);
 
 keyBindings[
     MovesPossible.RIGHT
-] = new RightMoveStrategy();
+] = new RightMoveStrategy(
+    MovesPossible.RIGHT,
+    MovesPossible.LEFT
+);
 
 
-export default function MoveFactory(keyPressed: string): MoveStrategy | null {
+export default function MoveFactory(keyPressed: string): MoveStrategy {
     const keys = Object.keys(keyBindings);
     if(keys.includes(keyPressed)) {
         return keyBindings[keyPressed];
     }
-    return null;
+    throw new Error(`${keyPressed} does not implements a Move Strategy`);
 }

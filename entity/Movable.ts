@@ -3,6 +3,7 @@ import Collidable from "./Collidable";
 import Coordinates from "./Coordinates";
 import MoveStrategy from "./moves/MoveStrategy";
 import MoveFactory from "./moves/MoveFactory";
+import BackwardsPolicy from "@/policy/BackwardsPolicy";
 
 export default abstract class Movable extends Collidable {
     private emitter: EventEmitter = new EventEmitter();
@@ -37,9 +38,6 @@ export default abstract class Movable extends Collidable {
     }
     public move(direction: string): void {
         const moveStrategy = MoveFactory(direction);
-        if(moveStrategy == null) {
-            return;
-        }
         const coordinates =  moveStrategy.calculatePositionForPlayer(this);
         const oldCoordinates = {
             x: this.x,
