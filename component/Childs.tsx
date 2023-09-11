@@ -26,14 +26,6 @@ export default function Childs({game}: Props) {
             lastOne.goTo(from);
             refreshChilds();
         });
-        for (let index = 0; index < 20; index++) {
-        
-            game.addChild({
-                x: game.player.x,
-                y: game.player.y
-            });
-        }
-        
     }, []);
 
     return (
