@@ -6,27 +6,16 @@ interface Props {
     child: EPlayerChild.default
 }
 export default function PlayerChild({child}: Props) {
-    const [coordinates, setCoordinates] = useState<Coordinates>({
-        x: 0,
-        y: 0
-    });
-    
-    useEffect(() => {
-        child.root.onMove((from, to) => {
-            child.goTo(from);
-            setCoordinates(from);
-        });
-    }, []);
-
     return (
         <div 
         style={{
           position: 'absolute', 
-          top: coordinates.y,
-          left: coordinates.x,
+          top: child.y,
+          left: child.x,
           width: child.width,
           height: child.height,
-          backgroundColor: 'gray'
-        }} />
+          backgroundColor: '#18D968',
+          border: '1px solid #27F041'
+        }}/>
     );
 }

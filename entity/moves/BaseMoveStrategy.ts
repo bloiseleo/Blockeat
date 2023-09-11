@@ -1,3 +1,4 @@
+import ClientCordinates from "../ClientCordinates";
 import Coordinates from "../Coordinates";
 import Movable from "../Movable";
 import MoveStrategy from "./MoveStrategy";

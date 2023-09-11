@@ -16,21 +16,20 @@ const Player = ({game}: Props) => {
 
   const movingInterval = useRef<NodeJS.Timeout>();
   
-  useEffect(() => {
-    
+  useEffect(() => {    
     game.player.onMove((from, to) => {
       setCoordinates(() => to);
     });
     
     game.on('movePlayer', key => {
       clearInterval(movingInterval.current);
+      game.player.move(key);
       movingInterval.current = setInterval(() => {
         game.player.move(key);
       }, 50);
     })
 
   }, []);
-
 
   return (
     <div

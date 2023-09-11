@@ -1,3 +1,4 @@
+import ClientCordinates from "../ClientCordinates";
 import DownMoveStrategy from "./DownMoveStrategy";
 import LeftMoveStrategy from "./LeftMoveStrategy";
 import MoveStrategy from "./MoveStrategy";

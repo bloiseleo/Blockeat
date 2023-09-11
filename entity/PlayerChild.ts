@@ -1,9 +1,11 @@
+import { randomUUID } from "crypto";
 import Coordinates from "./Coordinates";
 import Movable from "./Movable";
 import Player from "./Player";
 import MoveStrategy from "./moves/MoveStrategy";
 
 export default class PlayerChild extends Movable {
+    private uuid: number = Math.random();
     constructor(
         blockWidth: number,
         blockHeight: number,
@@ -20,27 +22,13 @@ export default class PlayerChild extends Movable {
             moveStrategy
         )
     }
-    static factory(qtt: number, father: Player) {
-        const childs = []
-        for(let i = 0; i < qtt; i++) {
-            childs.push(
-                new PlayerChild(
-                    16,
-                    16,
-                    {
-                        x: father.x,
-                        y: father.y + father.height
-                    },
-                    1,
-                    null,
-                    father
-                )
-            );
-            father = childs[i];
-        }
-        return childs;
+    set root(movable: Movable) {
+        this.father = movable;
     }
     get root() {
         return this.father;
+    }
+    toString() {
+        return this.uuid;
     }
 }

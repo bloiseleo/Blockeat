@@ -3,11 +3,10 @@ import Collidable from "./Collidable";
 import Coordinates from "./Coordinates";
 import MoveStrategy from "./moves/MoveStrategy";
 import MoveFactory from "./moves/MoveFactory";
-import BackwardsPolicy from "@/policy/BackwardsPolicy";
 
 export default abstract class Movable extends Collidable {
     private emitter: EventEmitter = new EventEmitter();
-    protected baseSpeed: number = 10;
+    protected baseSpeed: number;
     constructor(
         blockWidth: number,
         blockHeight: number,
@@ -20,6 +19,7 @@ export default abstract class Movable extends Collidable {
             blockHeight,
             coordinates
         );
+        this.baseSpeed = blockWidth;
     }
     onMove(callback: (from: Coordinates, to: Coordinates) => void) {
         this.emitter.on('move', callback);
