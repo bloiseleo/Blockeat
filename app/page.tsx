@@ -7,7 +7,6 @@ import GameObservable from "@/entity/Game";
 import Childs from '@/component/Childs';
 import ClientCordinates from '@/entity/ClientCordinates';
 import Blocks from '@/component/Blocks';
-import { GameConfigs } from '@/entity/GameConfigs';
 
 export default function GameCanvas() {
 

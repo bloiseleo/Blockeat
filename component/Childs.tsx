@@ -18,9 +18,6 @@ export default function Childs({game}: Props) {
         game.on('newChild', () => {
             refreshChilds();
         });
-        game.on('loseGame', () => {
-            refreshChilds();
-        })
         game.player.onMove((from, _) =>  {
             const lastOne = game.player.lastChild;
             if(!lastOne) {

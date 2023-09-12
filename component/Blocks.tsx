@@ -7,7 +7,7 @@ interface Props {
     game: GameObservable
 }
 export default function Blocks({game}: Props) {
-    const [blocks, setBlocks] = useState<Block[]>([]);
+    const [blocks, setBlocks] = useState<Block[]>(game.blocks);
     const refreshBlocks = () => {
         setBlocks([...game.blocks]);
     }
@@ -17,7 +17,7 @@ export default function Blocks({game}: Props) {
             game.removeBlock(block);
             refreshBlocks();
         });
-        game.on('loseGame', () => refreshBlocks());
+        game.on('refreshBlocks', () => refreshBlocks());
     }, []);
     return(
         <div>

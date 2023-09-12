@@ -86,7 +86,9 @@ export default class GameObservable extends EventEmitter{
     restart() {
         this.rtree.clear();
         this._blocks = {};
+        this.emit('refreshBlocks');
         this.player.restart();
+        this.start();
     }
     start() {
         for(let i = 0; i < GameConfigs.BLOCKS_QUANTITY_AT_START; i++) {
