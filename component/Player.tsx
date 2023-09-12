@@ -1,6 +1,6 @@
 import Coordinates from '@/entity/Coordinates';
 import GameObservable from '@/entity/Game';
-import * as EPlayer from '@/entity/Player';
+import { GameConfigs } from '@/entity/GameConfigs';
 import React, { useEffect, useRef, useState } from 'react'
 
 type Props = {
@@ -15,20 +15,31 @@ const Player = ({game}: Props) => {
   });
 
   const movingInterval = useRef<NodeJS.Timeout>();
-  
+  const resetPlayer = () => {
+    setCoordinates({
+      x: game.player.x,
+      y: game.player.y,
+    });
+  }
   useEffect(() => {    
     game.player.onMove((from, to) => {
       setCoordinates(() => to);
+    });
+
+    game.player.onRestart(() => {
+      clearInterval(movingInterval.current);
+      resetPlayer()
     });
     
     game.on('movePlayer', key => {
       clearInterval(movingInterval.current);
       game.player.move(key);
+      game.verifyCollision();
       movingInterval.current = setInterval(() => {
         game.player.move(key);
-      }, 50);
+        game.verifyCollision();
+      }, GameConfigs.TIME_BETWEEN_LOOP);
     })
-
   }, []);
 
   return (

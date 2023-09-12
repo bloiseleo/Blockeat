@@ -16,7 +16,7 @@ export default function Block({block}: Props) {
                 position: 'absolute',
                 top: block.y,
                 left: block.x,
-                backgroundColor: '#223344'
+                backgroundColor: 'yellow'
             }
         }
       />

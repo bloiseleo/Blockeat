@@ -1,7 +1,4 @@
-import Coordinates from "@/entity/Coordinates";
 import * as EPlayerChild from "@/entity/PlayerChild";
-import { chdir } from "process";
-import { useEffect, useState } from "react";
 interface Props {
     child: EPlayerChild.default
 }

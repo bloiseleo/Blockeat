@@ -3,7 +3,7 @@ import Movable from "./Movable";
 import PlayerChild from "./PlayerChild";
 import Coordinates from "./Coordinates";
 export default class Player extends Movable {
-    private _childs: PlayerChild[] = [];
+    private _childs: {[key: string]: PlayerChild} = {};
     private lastIndexChanged = -1;
 
     public move(direction: string): void {
@@ -19,15 +19,19 @@ export default class Player extends Movable {
     }
 
     get qtdChilds(): number {
-        return this._childs.length;
+        return this.childs.length;
     }
 
-    get childs() {
-        return this._childs;
+    get childs(): PlayerChild[] {
+        return Object.values(this._childs);
     }
 
-    getChild(index: number) {
-        return this._childs[index];
+    getChildByUuid(uuid: string): PlayerChild | undefined {
+        return this._childs[uuid];
+    }
+
+    getChild(index: number): PlayerChild {
+        return this.childs[index];
     }
 
     get lastChild(): PlayerChild | null {
@@ -39,27 +43,27 @@ export default class Player extends Movable {
         return this.getChild(this.lastIndexChanged);
     }
 
-    addChild(coordinates: Coordinates): PlayerChild {
-        let father: Movable = this;
-        if(this._childs.length > 0) {
-            father = this._childs[
-                this._childs.length - 1
-            ];
+    addChild(): PlayerChild {
+        let last: Movable = this.getChild(this.qtdChilds - 1);
+        if(!last) {
+            last = this;
         }
         const child = new PlayerChild(
-            16,
-            16,
             {
-                x: coordinates.x,
-                y: coordinates.y
+                x: last.x,
+                y: last.y
             },
-            1,
-            null,
-            father
         )
-        this._childs.push(
-            child
-        )
+        this._childs[child.uuid] = child;
         return child;
+    }
+    restart() {
+        this._childs = {};
+        this.x = 0;
+        this.y = 0;
+        this.emitter.emit('restart');
+    }
+    onRestart(callback: () => void) {
+        this.emitter.on('restart', callback);
     }
 }

@@ -1,15 +1,25 @@
+import HasUniqueId from "@/interfaces/HasUniqueId";
 import Coordinates from "./Coordinates";
+import uuid from "@/helpers/uuid";
+import RtreeItem from "@/interfaces/RtreeItem";
+import MovableRtreeItemAdapter from "@/adapters/MovableRtreeItemAdapter";
+import { GameConfigs } from "./GameConfigs";
 
 /**
  * Element that is capable to be renderade.
  */
-export default abstract class Renderable {
+export default abstract class Renderable implements HasUniqueId {
+    protected _uuid: string;
+    protected rtreeItem: RtreeItem;
     constructor(
-        protected blockWidth: number,
-        protected blockHeight: number,
         protected coordinates: Coordinates
-    ) {}
-
+    ) {
+        this._uuid = uuid();
+        this.rtreeItem = this.createRtreeItem();
+    }
+    get uuid() {
+        return this._uuid;
+    }
     get x() {
         return this.coordinates.x;
     }
@@ -17,15 +27,26 @@ export default abstract class Renderable {
         return this.coordinates.y;
     }
     get width() {
-        return this.blockWidth;
+        return GameConfigs.BLOCK_WIDTH;
     }
     get height() {
-        return this.blockHeight;
+        return GameConfigs.BLOCK_WIDTH;
     }
     set x(val: number) {
         this.coordinates.x = val;
     }
     set y(val: number) {
         this.coordinates.y = val;
+    }
+    public atualizeRtreeItem() {
+        const movableAdapter = new MovableRtreeItemAdapter(this);
+        movableAdapter.atualize();   
+    }
+    private createRtreeItem() {
+        const movableAdapter = new MovableRtreeItemAdapter(this);
+        return movableAdapter.adapt();
+    }
+    get item(): RtreeItem {
+        return this.rtreeItem;
     }
 }

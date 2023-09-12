@@ -1,6 +1,6 @@
 import GameObservable from "@/entity/Game";
 import PlayerChild from "./PlayerChild";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import * as EPlayerChild from "@/entity/PlayerChild";
 
 interface Props {
@@ -18,6 +18,9 @@ export default function Childs({game}: Props) {
         game.on('newChild', () => {
             refreshChilds();
         });
+        game.on('loseGame', () => {
+            refreshChilds();
+        })
         game.player.onMove((from, _) =>  {
             const lastOne = game.player.lastChild;
             if(!lastOne) {

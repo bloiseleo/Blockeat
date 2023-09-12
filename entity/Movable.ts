@@ -3,23 +3,20 @@ import Collidable from "./Collidable";
 import Coordinates from "./Coordinates";
 import MoveStrategy from "./moves/MoveStrategy";
 import MoveFactory from "./moves/MoveFactory";
+import { GameConfigs } from "./GameConfigs";
 
 export default abstract class Movable extends Collidable {
-    private emitter: EventEmitter = new EventEmitter();
+    protected emitter: EventEmitter = new EventEmitter();
     protected baseSpeed: number;
     constructor(
-        blockWidth: number,
-        blockHeight: number,
         coordinates: Coordinates,
         protected speedMultiplier: number = 1,
         protected moveStrategy: MoveStrategy | null = null
     ) {
         super(
-            blockWidth,
-            blockHeight,
             coordinates
         );
-        this.baseSpeed = blockWidth;
+        this.baseSpeed = GameConfigs.SPEED;
     }
     onMove(callback: (from: Coordinates, to: Coordinates) => void) {
         this.emitter.on('move', callback);
@@ -46,15 +43,6 @@ export default abstract class Movable extends Collidable {
         this.x = coordinates.x;
         this.y = coordinates.y;
         this.moveStrategy = moveStrategy;
-        this.emitter.emit('move', oldCoordinates, coordinates);
-    }
-    public goTo(coordinates: Coordinates): void {
-        const oldCoordinates = {
-            x: this.x,
-            y: this.y
-        };
-        this.x = coordinates.x;
-        this.y = coordinates.y;
         this.emitter.emit('move', oldCoordinates, coordinates);
     }
 }
