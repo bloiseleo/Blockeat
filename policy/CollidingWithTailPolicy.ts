@@ -8,7 +8,7 @@ export default class CollidingWithTailPolicy implements CollidingPolicy{
         for(let i = 0; i < tail.length; i++) {
             const block = tail[i];
             if(block.uuid == collidadedItem.uuid) {
-                game.emit('loseGame');
+                game.stop();
                 return;
             }
         }

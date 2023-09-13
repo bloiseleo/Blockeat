@@ -13,7 +13,7 @@ const Player = ({game}: Props) => {
     x: 0,
     y: 0
   });
-
+  const lastMovement = useRef<string>('');
   const movingInterval = useRef<NodeJS.Timeout>();
   const resetPlayer = () => {
     setCoordinates({
@@ -34,12 +34,19 @@ const Player = ({game}: Props) => {
     });
     game.on('movePlayer', key => {
       clearInterval(movingInterval.current);
+      lastMovement.current = key;
       game.player.move(key);
       game.verifyCollision();
       movingInterval.current = setInterval(() => {
         game.player.move(key);
         game.verifyCollision();
       }, GameConfigs.TIME_BETWEEN_LOOP);
+    })
+    game.on('pause', () => {
+      clearInterval(movingInterval.current);
+    })
+    game.on('unpause', () => {
+      game.movePlayer(lastMovement.current);
     })
   }, []);
 

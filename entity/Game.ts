@@ -3,7 +3,6 @@ import Player from "./Player";
 import RBush from 'rbush';
 import Block from "./Block";
 import { MovesPossible } from "./moves/Moves";
-import Coordinates from "./Coordinates";
 import MovableRtreeItemAdapter from "@/adapters/MovableRtreeItemAdapter";
 import PlayerChild from "./PlayerChild";
 import HasUniqueId from "@/interfaces/HasUniqueId";
@@ -12,11 +11,13 @@ import CollidingWithTailPolicy from "@/policy/CollidingWithTailPolicy";
 import ClientCordinates from "./ClientCordinates";
 import CollidingWithBlock from "@/policy/CollidingWithBlock";
 import { GameConfigs } from "./GameConfigs";
+import { GameStatus } from "./GameStatus";
 
 export default class GameObservable extends EventEmitter{
     
     public readonly possibleMoves: Array<String> = Object.values(MovesPossible);
     public rtree = new RBush();
+    private gameState: GameStatus = GameStatus.INITIAL;
     private _blocks: {[key: string]: Block} = {};
     private _policys = [
         new CollidingWithTailPolicy(),
@@ -27,13 +28,19 @@ export default class GameObservable extends EventEmitter{
     ) {
         super();
     }
+    get status(): GameStatus {
+        return this.gameState;
+    }
     get blocks(): Block[] {
         return Object.values(this._blocks);
     }
     captureKeyPressed(key: string) {
         if(this.possibleMoves.includes(key)) {
-            this.emit('movePlayer', key);
+            this.movePlayer(key);
         }
+    }
+    movePlayer(key: string): void {
+        this.emit('movePlayer', key);
     }
     listenChildren(child: PlayerChild) {
         child.onGoto((oldCord, coord, child) => {
@@ -89,10 +96,30 @@ export default class GameObservable extends EventEmitter{
         this.emit('refreshBlocks');
         this.player.restart();
         this.start();
+        this.emit('restart');
     }
     start() {
+        this.gameState = GameStatus.RUNNING;
         for(let i = 0; i < GameConfigs.BLOCKS_QUANTITY_AT_START; i++) {
             this.addBlock();
         }
+        this.movePlayer(
+            GameConfigs.START_MOVIMENT
+        );
+    }
+    pause() {
+        if(this.gameState == GameStatus.STOPPED) {
+            return;
+        }
+        this.gameState = GameStatus.PAUSED;
+        this.emit('pause');
+    }
+    unpause() {
+        this.gameState = GameStatus.UNPAUSE;
+        this.emit('unpause');
+    }
+    stop() {
+        this.gameState = GameStatus.STOPPED;
+        this.emit('loseGame');
     }
 }
