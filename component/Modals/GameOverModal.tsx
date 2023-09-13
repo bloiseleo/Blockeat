@@ -18,8 +18,7 @@ export default function GameOverModal({ game }: Props) {
     }
 
     const notContinueClick = () => {
-        window.location.replace('https://github.com/bloiseleo/Blockeat');
-        return;
+        window.location.reload();
     }
 
     useEffect(() => {

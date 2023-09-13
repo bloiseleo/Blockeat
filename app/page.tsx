@@ -9,6 +9,7 @@ import ClientCordinates from '@/entity/ClientCordinates';
 import Blocks from '@/component/Blocks';
 import GameOverModal from '@/component/Modals/GameOverModal';
 import PauseModal from '@/component/Modals/PauseModal';
+import StartMenu from '@/component/Modals/StartMenu';
 
 export default function GameCanvas() {
 
@@ -23,23 +24,27 @@ export default function GameCanvas() {
     gameObservable.pause();
   }
 
+  const focusOnCanvas = () => {
+    if (mainRef.current) {
+      mainRef.current.focus();
+    }
+  }
+
   const handleKeyDown = (event: KeyboardEvent<HTMLElement>) => {
     const key = event.key.toLowerCase();
     gameObservable.captureKeyPressed(key);
   }
 
   useEffect(() => {
-    gameObservable.start();
     gameObservable.on('restart', () => {
-      if(mainRef.current) {
-        mainRef.current.focus();
-      }
+      focusOnCanvas()
     })
     gameObservable.on('unpause', () => {
-      if(mainRef.current) {
-        mainRef.current.focus();
-      }
+      focusOnCanvas()
     });
+    gameObservable.on('start', () => {
+      focusOnCanvas()
+    })
   }, []);
 
   return (
@@ -56,6 +61,7 @@ export default function GameCanvas() {
       </main>
       <GameOverModal game={gameObservable}></GameOverModal>
       <PauseModal game={gameObservable}></PauseModal>
+      <StartMenu game={gameObservable}></StartMenu>
     </>
   )
 }

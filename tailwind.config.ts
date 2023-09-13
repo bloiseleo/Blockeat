@@ -16,6 +16,31 @@ const config: Config = {
       },
       colors: {
         'shadowBlack': 'rgba(0,0,0,.9)'
+      },
+      animation: {
+        rainbowMy: 'rainbow 1.5s linear infinite',
+      },
+      keyframes: {
+        rainbow: {
+          '0%': {
+            color: 'red'
+          },
+          '16%': {
+            color: 'orange'
+          },
+          '32%': {
+            color: 'yellow'
+          },
+          '48%': {
+            color: 'green'
+          },
+          '64%': {
+            color: 'blue'
+          },
+          '100%': {
+            color: 'purple'
+          }
+        }
       }
     },
   },

@@ -116,16 +116,20 @@ export default class GameObservable extends EventEmitter{
         this.movePlayer(
             GameConfigs.START_MOVIMENT
         );
+        this.emit('start');
     }
     pause() {
-        if(this.gameState == GameStatus.STOPPED) {
+        if(
+            this.gameState != GameStatus.RUNNING
+         ) {
+            console.log(this.gameState);
             return;
         }
         this.gameState = GameStatus.PAUSED;
         this.emit('pause');
     }
     unpause() {
-        this.gameState = GameStatus.UNPAUSE;
+        this.gameState = GameStatus.RUNNING;
         this.emit('unpause');
     }
     stop() {
