@@ -1,7 +1,6 @@
 import BackwardsPolicy from "@/policy/BackwardsPolicy";
 import Movable from "./Movable";
 import PlayerChild from "./PlayerChild";
-import Coordinates from "./Coordinates";
 export default class Player extends Movable {
     private _childs: {[key: string]: PlayerChild} = {};
     private lastIndexChanged = -1;

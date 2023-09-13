@@ -8,8 +8,6 @@ import Childs from '@/component/Childs';
 import ClientCordinates from '@/entity/ClientCordinates';
 import Blocks from '@/component/Blocks';
 import GameOverModal from '@/component/Modals/GameOverModal';
-import Modal from '@/component/Modal';
-import ModalButton from '@/component/Modals/ModalButton';
 import PauseModal from '@/component/Modals/PauseModal';
 
 export default function GameCanvas() {
@@ -19,8 +17,6 @@ export default function GameCanvas() {
     y: 0
   }));
 
-  const lastKeyPressed = useRef<string>();
-
   const mainRef = useRef<HTMLElement>(null);
 
   const pauseGame = () => {
@@ -29,10 +25,6 @@ export default function GameCanvas() {
 
   const handleKeyDown = (event: KeyboardEvent<HTMLElement>) => {
     const key = event.key.toLowerCase();
-    if (lastKeyPressed.current == key) {
-      return;
-    }
-    lastKeyPressed.current = key;
     gameObservable.captureKeyPressed(key);
   }
 

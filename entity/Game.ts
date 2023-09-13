@@ -12,10 +12,13 @@ import ClientCordinates from "./ClientCordinates";
 import CollidingWithBlock from "@/policy/CollidingWithBlock";
 import { GameConfigs } from "./GameConfigs";
 import { GameStatus } from "./GameStatus";
+import { Commands } from "./commands/Commands";
+import CommandFactory from "./commands/CommandFactory";
 
 export default class GameObservable extends EventEmitter{
     
-    public readonly possibleMoves: Array<String> = Object.values(MovesPossible);
+    public readonly possibleMoves: Array<string> = Object.values(MovesPossible);
+    public readonly possibleCommands: Array<string> = Object.values(Commands);
     public rtree = new RBush();
     private gameState: GameStatus = GameStatus.INITIAL;
     private _blocks: {[key: string]: Block} = {};
@@ -38,6 +41,13 @@ export default class GameObservable extends EventEmitter{
         if(this.possibleMoves.includes(key)) {
             this.movePlayer(key);
         }
+        if(this.possibleCommands.includes(key)) {
+            this.executeCommand(key)
+        }
+    }
+    executeCommand(key: string): void {
+        const command = CommandFactory(key);
+        command.apply(this);
     }
     movePlayer(key: string): void {
         this.emit('movePlayer', key);
