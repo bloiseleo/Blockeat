@@ -13,6 +13,8 @@ export default function StartMenu({ game }: Props) {
     const [show, setShow] = useState(true);
     const [playingSound, setPlayingSoud] = useState(false);
 
+    const audio = new Audio('menu.mp3');
+
     const startGame = () => {
         game.start();
         setShow(false);
@@ -24,10 +26,11 @@ export default function StartMenu({ game }: Props) {
 
     useEffect(() => {
         if(playingSound) {
-            const audio = new Audio('menu.mp3');
             audio.loop = true;
             audio.volume = 0.2;
             audio.play();
+        } else {
+            audio.pause();
         }
     }, [playingSound]);
 
