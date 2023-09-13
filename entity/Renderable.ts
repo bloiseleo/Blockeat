@@ -27,10 +27,10 @@ export default abstract class Renderable implements HasUniqueId {
         return this.coordinates.y;
     }
     get width() {
-        return GameConfigs.BLOCK_WIDTH;
+        return GameConfigs.BLOCK_WIDTH as number;
     }
     get height() {
-        return GameConfigs.BLOCK_WIDTH;
+        return GameConfigs.BLOCK_WIDTH as number;
     }
     set x(val: number) {
         this.coordinates.x = val;
