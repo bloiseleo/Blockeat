@@ -12,8 +12,7 @@ interface Props {
 export default function StartMenu({ game }: Props) {
     const [show, setShow] = useState(true);
     const [playingSound, setPlayingSoud] = useState(false);
-
-    const audio = new Audio('menu.mp3');
+    const audio = useRef(new Audio('menu.mp3'));
 
     const startGame = () => {
         game.start();
@@ -26,11 +25,12 @@ export default function StartMenu({ game }: Props) {
 
     useEffect(() => {
         if(playingSound) {
-            audio.loop = true;
-            audio.volume = 0.2;
-            audio.play();
+            audio.current.currentTime = 0;
+            audio.current.loop = true;
+            audio.current.volume = 0.2;
+            audio.current.play();
         } else {
-            audio.pause();
+            audio.current.pause();
         }
     }, [playingSound]);
 
