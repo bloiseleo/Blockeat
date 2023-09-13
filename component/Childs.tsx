@@ -26,6 +26,7 @@ export default function Childs({game}: Props) {
             lastOne.goTo(from);
             refreshChilds();
         });
+        game.player.onRestart(() => refreshChilds());
     }, []);
 
     return (

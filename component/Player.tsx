@@ -25,12 +25,13 @@ const Player = ({game}: Props) => {
     game.player.onMove((from, to) => {
       setCoordinates(() => to);
     });
-
     game.player.onRestart(() => {
       clearInterval(movingInterval.current);
       resetPlayer()
     });
-    
+    game.on('loseGame', () => {
+      clearInterval(movingInterval.current);
+    });
     game.on('movePlayer', key => {
       clearInterval(movingInterval.current);
       game.player.move(key);
