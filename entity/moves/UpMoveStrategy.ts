@@ -7,7 +7,7 @@ export default class UpMoveStrategy extends BaseMoveStrategy {
 
     calculatePositionForPlayer(player: Player): Coordinates {
         let newPos = player.y - player.speed;
-        if(newPos < (player.height * -1)) {
+        if(newPos <= (player.height * -1)) {
             newPos = ClientCordinates.height - player.speed;
         }
         return {

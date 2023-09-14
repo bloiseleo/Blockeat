@@ -6,7 +6,7 @@ import ClientCordinates from "../ClientCordinates";
 export default class LeftMoveStrategy extends BaseMoveStrategy {
     calculatePositionForPlayer(player: Player): Coordinates {
         let newPos = player.x - player.speed;
-        if(newPos < (player.width * -1)) {
+        if(newPos <= (player.width * -1)) {
             newPos = ClientCordinates.width - player.speed;
         }
         return {

@@ -7,9 +7,9 @@ import ClientCordinates from "../ClientCordinates";
 export default class DownMoveStrategy extends BaseMoveStrategy {
     calculatePositionForPlayer(player: Player): Coordinates {
         let newPos = player.y + player.speed;
-        if(newPos > ClientCordinates.height) {
+        if(newPos >= ClientCordinates.height) {
             return {
-                y: (player.height * -1),
+                y: 0,
                 x: player.x
             }
         }
