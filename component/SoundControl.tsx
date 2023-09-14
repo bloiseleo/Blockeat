@@ -1,5 +1,4 @@
 import { useGameContext } from "@/contexts/GameContext";
-import { AudioBackground } from "@/entity/audios/AudioBackground";
 import { useEffect, useState } from "react";
 import SoundIcon from "./Icons/SoundIcon";
 import MuteIcon from "./Icons/MuteIcon";
@@ -13,7 +12,6 @@ export default function SoundControl() {
     
     const enableAudio = () => {
         gameContext.audioEngine.enable();
-        gameContext.audioEngine.playBackground(AudioBackground.MENU);
         setEnabled(true);
     }
     const disableAudio = () => {

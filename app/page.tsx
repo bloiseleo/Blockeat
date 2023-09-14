@@ -2,16 +2,31 @@
 import SoundControl from "@/component/SoundControl";
 import { useGameContext } from "@/contexts/GameContext";
 import GameObservable from "@/entity/Game";
+import { AudioBackground } from "@/entity/audios/AudioBackground";
 import { useRouter } from 'next/navigation';
+import { useEffect } from "react";
 
 export default function Home() {
     const gameContext = useGameContext();
     const router = useRouter();
 
+    const playMenuBackground = () => {
+        gameContext.audioEngine.stopCurrentBackgroundMusic();
+        gameContext.audioEngine.playBackground(AudioBackground.MENU);
+    }
+
     const startGame = () => {
         gameContext.game = GameObservable.factory();
         router.replace('/play');
     }
+
+    useEffect(() => {
+        gameContext.audioEngine.on('enabled', playMenuBackground);
+        playMenuBackground();
+        return () => {
+            gameContext.audioEngine.removeListener('enabled', playMenuBackground);
+        }
+    }, []);
 
     return (
         <div className="flex h-screen flex-col justify-around items-center">

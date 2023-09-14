@@ -12,25 +12,26 @@ const Player = () => {
   });
   const lastMovement = useRef<string>('');
   const movingInterval = useRef<NodeJS.Timeout>();
+  const stopMoving = () => {
+    clearInterval(movingInterval.current);
+  }
   const resetPlayer = () => {
+    stopMoving();
     setCoordinates({
       x: game.player.x,
       y: game.player.y,
     });
   }
+  const goTo = (from:Coordinates, to: Coordinates) => {
+    setCoordinates(() => to);
+  }
   useEffect(() => {    
-    game.player.onMove((from, to) => {
-      setCoordinates(() => to);
-    });
-    game.player.onRestart(() => {
-      clearInterval(movingInterval.current);
-      resetPlayer()
-    });
-    game.on('loseGame', () => {
-      clearInterval(movingInterval.current);
-    });
+    game.player.onMove(goTo);
+    game.player.onRestart(resetPlayer);
+    game.on('loseGame', stopMoving);
+    game.on('pause', stopMoving)
     game.on('movePlayer', key => {
-      clearInterval(movingInterval.current);
+      stopMoving();
       lastMovement.current = key;
       game.player.move(key);
       game.verifyCollision();
@@ -38,9 +39,6 @@ const Player = () => {
         game.player.move(key);
         game.verifyCollision();
       }, GameConfigs.TIME_BETWEEN_LOOP);
-    })
-    game.on('pause', () => {
-      clearInterval(movingInterval.current);
     })
     game.on('unpause', () => {
       game.movePlayer(lastMovement.current);

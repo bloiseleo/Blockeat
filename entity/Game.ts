@@ -128,7 +128,6 @@ export default class GameObservable extends EventEmitter{
         if(
             this.gameState != GameStatus.RUNNING
          ) {
-            console.log(this.gameState);
             return;
         }
         this.gameState = GameStatus.PAUSED;

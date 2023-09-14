@@ -5,13 +5,13 @@ import { AudioSoundEffect } from "./audios/AudioSoundEffect";
 import { AudioStatus } from "./audios/AudioStatus";
 
 export default class AudioEngine extends EventEmitter {
+    private lastAudioBackgroundReference: AudioBackground | null = null;
     private backgroundAudio: HTMLAudioElement | null = null;
     private reproducingBackgroundAudio: boolean = false;
     private soundState: AudioStatus = AudioStatus.DISABLED;
     
     constructor() {
         super();
-        this.on('enabled', () => this.playAgain());
         this.on('disabled', () => this.pauseBackgroundAudio())
     }
     pauseBackgroundAudio() {
@@ -22,12 +22,13 @@ export default class AudioEngine extends EventEmitter {
         this.reproducingBackgroundAudio = false;
     }
     playAgain() {
-        if(!this.backgroundAudio || !this.audioEnabled) {
+        if(!this.backgroundAudio || !this.audioEnabled || !this.lastAudioBackgroundReference) {
             return;  
         }
-        const source = this.backgroundAudio.src as AudioBackground;
         this.backgroundAudio = null;
-        this.playBackground(source);;
+        this.playBackground(
+            this.lastAudioBackgroundReference
+        );
     }
     enable(): void {
         this.soundState = AudioStatus.ENABLED;
@@ -57,6 +58,7 @@ export default class AudioEngine extends EventEmitter {
         backgroundAudio.volume = GameConfigs.BACKGROUND_MUSIC_VOLUME;
         backgroundAudio.play();
         this.backgroundAudio = backgroundAudio;
+        this.lastAudioBackgroundReference = audio;
         this.reproducingBackgroundAudio = true;
     }
     
@@ -74,6 +76,7 @@ export default class AudioEngine extends EventEmitter {
             return;
         }
         this.backgroundAudio.pause();
+        this.reproducingBackgroundAudio = false;
     }
 
 }
