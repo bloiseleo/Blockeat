@@ -18,3 +18,11 @@ Entretanto, decidi adicionar alguns detalhes:
 🎮 Os blocos especiais sempre te fornecem 0.5 de corpo e 2 de block. <br>
 
 Por enquanto, temos esse conjunto de especificações para implementar antes de prosseguir com as próximas ideias. Minha intenção não é fazer nada muito fora do comum, somente me divertir com meu irmãozinho.
+
+<h2> Bibliotecas </h2>
+<ul>
+    <li> Next </li>
+    <li> TypeScript </li>
+    <li> RBush </li>
+</ul>
+
