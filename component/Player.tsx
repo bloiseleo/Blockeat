@@ -1,14 +1,11 @@
+'use client';
+import { useGame } from '@/contexts/GameContext';
 import Coordinates from '@/entity/Coordinates';
-import GameObservable from '@/entity/Game';
 import { GameConfigs } from '@/entity/GameConfigs';
 import React, { useEffect, useRef, useState } from 'react'
 
-type Props = {
-  game: GameObservable
-}
-
-const Player = ({game}: Props) => {
-  
+const Player = () => {
+  const game = useGame();
   const [coordinates, setCoordinates] = useState<Coordinates>({
     x: 0,
     y: 0

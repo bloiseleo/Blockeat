@@ -31,6 +31,12 @@ export default class GameObservable extends EventEmitter{
     ) {
         super();
     }
+    static factory() {
+        return new GameObservable(new Player({
+            x: 0,
+            y: 0
+        }));
+    }
     get status(): GameStatus {
         return this.gameState;
     }

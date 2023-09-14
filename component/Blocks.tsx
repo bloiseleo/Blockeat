@@ -1,12 +1,11 @@
+'use client';
 import Block from "@/entity/Block";
-import GameObservable from "@/entity/Game";
 import { useEffect, useState } from "react";
 import * as BlockComponent from '@/component/Block';
+import { useGame } from "@/contexts/GameContext";
 
-interface Props {
-    game: GameObservable
-}
-export default function Blocks({game}: Props) {
+export default function Blocks() {
+    const game = useGame();
     const [blocks, setBlocks] = useState<Block[]>(game.blocks);
     const refreshBlocks = () => {
         setBlocks([...game.blocks]);

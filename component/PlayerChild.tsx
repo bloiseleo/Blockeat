@@ -1,3 +1,4 @@
+'use client';
 import * as EPlayerChild from "@/entity/PlayerChild";
 interface Props {
     child: EPlayerChild.default

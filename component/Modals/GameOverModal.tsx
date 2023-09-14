@@ -2,13 +2,10 @@ import Modal from "../Modal";
 import GameObservable from "@/entity/Game";
 import { useEffect, useState } from "react";
 import ModalButton from "./ModalButton";
+import { useGame } from "@/contexts/GameContext";
 
-interface Props {
-    game: GameObservable
-}
-
-export default function GameOverModal({ game }: Props) {
-
+export default function GameOverModal() {
+    const game = useGame();
     const [show, setShow] = useState(false);
 
     const continueClick = () => {

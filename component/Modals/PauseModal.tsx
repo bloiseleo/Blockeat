@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
 import Modal from "../Modal";
 import ModalButton from "./ModalButton";
-import GameObservable from "@/entity/Game";
+import { useGame } from "@/contexts/GameContext";
 
-interface Props {
-    game: GameObservable
-}
 
-export default function PauseModal({game}: Props) {
+export default function PauseModal() {
     const [show, setShow] = useState(false);
-
+    const game = useGame();
+    
     const unPause = () => {
         game.unpause();
         setShow(false);

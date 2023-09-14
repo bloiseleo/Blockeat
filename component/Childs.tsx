@@ -1,13 +1,11 @@
-import GameObservable from "@/entity/Game";
+'use client';
 import PlayerChild from "./PlayerChild";
 import { useEffect, useState } from "react";
 import * as EPlayerChild from "@/entity/PlayerChild";
+import { useGame } from "@/contexts/GameContext";
 
-interface Props {
-    game: GameObservable
-}
-export default function Childs({game}: Props) {
-
+export default function Childs() {
+    const game = useGame();
     const [childs, setChilds] = useState<Array<EPlayerChild.default>>(game.player.childs);
     const refreshChilds = () => {
         setChilds(() => {
