@@ -101,7 +101,7 @@ export default class GameObservable extends EventEmitter{
     removeBlock(block: Block): void {
         delete this._blocks[block.uuid];
         if(this.blocks.length == 0) {
-            for(let i = 0; i < 3; i++) {
+            for(let i = 0; i < GameConfigs.BLOCKS_QUANTIY_AT_REFRESH; i++) {
                 this.addBlock();
             }
         }
