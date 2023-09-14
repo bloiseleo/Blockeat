@@ -8,6 +8,7 @@ import GameOverModal from '@/component/Modals/GameOverModal';
 import PauseModal from '@/component/Modals/PauseModal';
 import { useGameContext } from "@/contexts/GameContext";
 import { AudioSoundEffect } from "@/entity/audios/AudioSoundEffect";
+import { AudioBackground } from "@/entity/audios/AudioBackground";
 
 export default function Canvas() {
   const ctx = useGameContext();
@@ -32,22 +33,35 @@ export default function Canvas() {
   }
 
   const playDeathSound = () => {
+    audio.stopCurrentBackgroundMusic();
     audio.playSoundEffect(AudioSoundEffect.DEAD);
   }
 
   const playBackground = () => {
     audio.stopCurrentBackgroundMusic();
+    audio.playBackground(AudioBackground.MAIN);
   }
 
-  useEffect(() => {
-    gameObservable.on('restart', focusOnCanvas)
-    gameObservable.on('unpause', focusOnCanvas);
-    gameObservable.on('loseGame', playDeathSound);
+  const startGame = () => {
     focusOnCanvas();
     gameObservable.start();
     playBackground();
+  }
+
+  const restartGame = () => {
+    focusOnCanvas();
+    playBackground();
+  }
+
+  useEffect(() => {
+    audio.on('enabled', playBackground);
+    gameObservable.on('restart', restartGame);
+    gameObservable.on('unpause', focusOnCanvas);
+    gameObservable.on('loseGame', playDeathSound);
+    startGame();
     return () => {
-      gameObservable.removeListener('restart', focusOnCanvas)
+      audio.removeListener('enabled', playBackground);  
+      gameObservable.removeListener('restart', restartGame)
       gameObservable.removeListener('unpause', focusOnCanvas);
       gameObservable.removeListener('loseGame', playDeathSound);
     }
