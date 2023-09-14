@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Modal from "../Modal";
 import ModalButton from "./ModalButton";
 import { useGame } from "@/contexts/GameContext";
+import SoundControl from "../SoundControl";
 
 
 export default function PauseModal() {
@@ -27,6 +28,7 @@ export default function PauseModal() {
                         <div className='h-[100%] flex flex-col justify-around items-center'>
                             <h1 className='text-white text-2xl text-center'> Você ainda está ai? </h1>
                             <ModalButton text='Continuar' onClick={unPause}></ModalButton>
+                            <SoundControl></SoundControl>
                         </div>
                     </Modal>
                     :

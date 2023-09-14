@@ -1,4 +1,3 @@
-import GameObservable from "../Game";
 import Command from "./Command";
 import { Commands } from "./Commands";
 import PauseCommand from "./PauseCommand";

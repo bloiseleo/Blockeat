@@ -6,10 +6,12 @@ import ClientCordinates from '@/entity/ClientCordinates';
 import Blocks from '@/component/Blocks';
 import GameOverModal from '@/component/Modals/GameOverModal';
 import PauseModal from '@/component/Modals/PauseModal';
-import { useGame } from "@/contexts/GameContext";
+import { useGame, useGameContext } from "@/contexts/GameContext";
 
 export default function Canvas() {
-    const gameObservable = useGame();
+    const ctx = useGameContext();
+    const gameObservable = ctx.game;
+
 
     const mainRef = useRef<HTMLElement>(null);
   

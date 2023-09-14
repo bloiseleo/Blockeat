@@ -1,12 +1,14 @@
+'use client';
 import Modal from "../Modal";
-import GameObservable from "@/entity/Game";
 import { useEffect, useState } from "react";
 import ModalButton from "./ModalButton";
 import { useGame } from "@/contexts/GameContext";
+import { useRouter } from "next/navigation";
 
 export default function GameOverModal() {
     const game = useGame();
     const [show, setShow] = useState(false);
+    const router = useRouter();
 
     const continueClick = () => {
         game.restart();
@@ -15,7 +17,7 @@ export default function GameOverModal() {
     }
 
     const notContinueClick = () => {
-        window.location.reload();
+        router.replace('/');
     }
 
     useEffect(() => {

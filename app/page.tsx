@@ -1,5 +1,5 @@
 'use client'
-import SoundIcon from "@/component/Icons/SoundIcon";
+import SoundControl from "@/component/SoundControl";
 import { useGameContext } from "@/contexts/GameContext";
 import GameObservable from "@/entity/Game";
 import { useRouter } from 'next/navigation';
@@ -27,9 +27,7 @@ export default function Home() {
                     </button>
                 </nav>
             </main>
-            <div className="absolute bottom-10 right-10 animate-bounce cursor-pointer">
-                <SoundIcon></SoundIcon>
-            </div>
+            <SoundControl></SoundControl>
         </div>
     );
 }
