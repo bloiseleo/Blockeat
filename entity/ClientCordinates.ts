@@ -8,4 +8,4 @@ class ClientCordinates {
     }
 }
 
-export default new ClientCordinates(1200, 800);
+export default new ClientCordinates(1200, 700);
