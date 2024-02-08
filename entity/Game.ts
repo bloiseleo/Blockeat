@@ -15,8 +15,7 @@ import { GameStatus } from "./GameStatus";
 import { Commands } from "./commands/Commands";
 import CommandFactory from "./commands/CommandFactory";
 
-export default class GameObservable extends EventEmitter{
-    
+export default class GameObservable extends EventEmitter {
     public readonly possibleMoves: Array<string> = Object.values(MovesPossible);
     public readonly possibleCommands: Array<string> = Object.values(Commands);
     public rtree = new RBush();
@@ -42,6 +41,9 @@ export default class GameObservable extends EventEmitter{
     }
     get blocks(): Block[] {
         return Object.values(this._blocks);
+    }
+    get eaten(): number {
+        return this.player.childs.length;
     }
     captureKeyPressed(key: string) {
         if(this.possibleMoves.includes(key)) {

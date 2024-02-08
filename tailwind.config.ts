@@ -19,6 +19,7 @@ const config: Config = {
       },
       animation: {
         rainbowMy: 'rainbow 1.5s linear infinite',
+        upDow: 'upDow 1.5s linear infinite'
       },
       keyframes: {
         rainbow: {
@@ -39,6 +40,17 @@ const config: Config = {
           },
           '100%': {
             color: 'purple'
+          }
+        },
+        upDow:  {
+          '0%': {
+              top: '10px'
+          },
+          '50%': {
+            top: '-10px'
+          },
+          '100%': {
+            top: '0'
           }
         }
       }
