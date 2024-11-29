@@ -2,27 +2,17 @@
     <h1> Blockeat! 🎲</h1>
 </div>
 
-Esse jogo tem como objetivo aproximar eu e meu irmão. Durante todos esses anos, meu irmão adquiriu uma paixão pelos jogos que eu também compartilhava quando era criança. Contudo, graças a diferença de idade, nunca ou quase nunca temos horários batendo. Quando ele está na escola, eu estou trabalhando. Quando eu estou livre, ele está estudando. Quando eu estou estudando, ele está livre. Por causa disso, decidi fazer que meus estudos contemplassem essa nossa paixão compartilhada: Desenvolver um Jogo utilizando Next.
+This game aims to bring me and my brother closer together. Over the years, my brother has developed a passion for games that I also shared when I was a child. However, due to the age difference, we rarely or almost never have matching schedules. When he's at school, I'm working. When I'm free, he's studying. When I'm studying, he's free. Because of this, I decided to make my studies include this shared passion: developing a game using Next.
 
-O jogo segue o mesmo conceito do jogo da cobrinha: você precisa comer para crescer.
+The game follows the same concept as the snake game: you need to eat to grow.
 
-🎮 Durante todo o jogo, existira, pelo menos, 1 bloco na tela. Você precisa colidir com eles para comê-los.<br>
-🎮 Cada bloco comido aumenta o seu corpo em 1 bloco.<br>
-🎮 Cada bloco comido também te dá 1 block, que é a moeda do jogo. NOTA: NÃO HÁ VALOR REAL ATRELADO E NEM MEIOS PARA COMPRAR.<br>
-🎮 Você perde o jogo ao encostar no seu próprio corpo.<br>
+🎮 Throughout the game, there will always be at least one block on the screen. You need to collide with them to eat them.<br>
+🎮 Each block you eat increases your body by 1 block.<br>
+🎮 You lose the game if you touch your own body.<br>
 
-Entretanto, decidi adicionar alguns detalhes:
-
-🎮 Existem dois tipos de blocos: os normais e os especiais. <br>
-🎮 Os blocos normais te fornecem 1 de corpo e 1 de block. <br>
-🎮 Os blocos especiais sempre te fornecem 0.5 de corpo e 2 de block. <br>
-
-Por enquanto, temos esse conjunto de especificações para implementar antes de prosseguir com as próximas ideias. Minha intenção não é fazer nada muito fora do comum, somente me divertir com meu irmãozinho.
-
-<h2> Bibliotecas </h2>
+<h2> Libraries </h2>
 <ul>
     <li> Next </li>
     <li> TypeScript </li>
     <li> RBush </li>
 </ul>
-
